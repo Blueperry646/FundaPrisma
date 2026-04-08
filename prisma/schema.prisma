@@ -6,8 +6,15 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+// comando: npx prisma db push "cria tabela"
+// comando: npx prisma db pull "puxa tabela"
+
 model User {
   id Int @id @default(autoincrement())
   name String
   email String @unique
+  status Boolean @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
