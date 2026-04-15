@@ -23,6 +23,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   posts Post[]
+  @@map("users")
 }
 
 model Post {
@@ -30,6 +31,7 @@ model Post {
   title String
   subtitle String?
   content String
-  userId Int
+  userId Int  @map("user_id")
   user User @relation(fields: [userId], references: [id])
+  @@map("posts") //mapeia como posts no bd
 }
