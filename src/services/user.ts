@@ -7,7 +7,8 @@ type CreateUserProps = {
 }
 
 export const createUser = async ({name, email}: CreateUserProps) => {
-    const user = await prisma.user.create({
+    try {
+        const user = await prisma.user.create({
         data: {
             name,
             email
@@ -15,4 +16,13 @@ export const createUser = async ({name, email}: CreateUserProps) => {
     })
 
     return user
+    } catch (error) {
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+            if(error.code === 'P2002') {
+                console.error('Error: Email already exists')
+                return false
+            }
+        }
+        console.log('Error creating user:', error)
+    }
 }

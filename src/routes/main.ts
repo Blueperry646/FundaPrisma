@@ -13,6 +13,9 @@ mainRouter.post('/user', async (req, res) =>{
             name: 'John Name',
             email: 'johnemail@john.com'
     })
-    
-    res.json(user)
+    if (user) {
+        res.status(201).json
+    } else {
+        res.status(400)
+    }
 } )
